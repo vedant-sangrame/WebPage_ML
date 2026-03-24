@@ -1,5 +1,6 @@
 from flask import Flask, request
 import pickle
+import os   # ✅ add this
 
 app = Flask(__name__)
 
@@ -36,5 +37,7 @@ def predict():
     prediction = model.predict([[input_value]])
     return render_page(prediction[0])
 
+# ✅ IMPORTANT CHANGE HERE
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
